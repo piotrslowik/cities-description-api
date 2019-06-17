@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import Input from './components/Input';
+import SuggestionsInput from './components/SuggestionsInput';
 import './App.scss';
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.suggestions = ['Poland', 'Germany', 'Spain', 'France']
 
     this.state = {
       inputValue: '',
@@ -14,20 +16,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Input
-          value={ this.state.inputValue }
-          actionOnChange={ this.handleInput }
-          placeholder="Type a name of a country..."
-          autoComplete="on"
-        />
+        <SuggestionsInput suggestions={this.suggestions} />
       </div>
-    );
-  }
-
-  handleInput = value => {
-    this.setState({
-      inputValue: value
-    })
+    )
   }
 }
 

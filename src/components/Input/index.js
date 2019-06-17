@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.scss'
 
 const input = ({
   className,
   id,
   value,
   actionOnChange,
+  actionOnKeyPress,
   type,
   placeholder,
-  autoComplete
+  arrowEvents,
 }) => {
   return (
     <input
@@ -17,9 +17,10 @@ const input = ({
       id={id}
       value={value}
       onChange={el => actionOnChange(el.target.value)}
+      onKeyPress={actionOnKeyPress}
       type={type}
       placeholder={placeholder}
-      autoComplete={autoComplete}
+      {...arrowEvents}
     />
   )
 };
@@ -31,7 +32,6 @@ input.propTypes = {
   value: PropTypes.string,
   actionOnChange: PropTypes.func,
   type: PropTypes.string,
-  autoComplete: PropTypes.oneOf(["on", "off"])
 };
 
 input.defaultProps = {
@@ -41,7 +41,6 @@ input.defaultProps = {
   value: '',
   actionOnChange: () => { },
   type: 'text',
-  autoComplete: 'off'
 }
 
 export default input;

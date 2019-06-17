@@ -1,0 +1,10 @@
+.suggestions-input {
+  position: relative;
+  margin-top: 20px;
+
+  &-list {
+    position: absolute;
+    top: 30px;
+    min-width: 150px;
+  }
+}

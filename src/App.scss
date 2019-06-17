@@ -1,1 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+}
+
 @import "./components/Input/styles.scss";
+@import "./components/Suggestion/styles.scss";
+@import "./components/SuggestionsInput/styles.scss";

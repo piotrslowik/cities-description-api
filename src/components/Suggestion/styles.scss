@@ -1,0 +1,11 @@
+@import '../../variables.scss';
+
+.suggestion {
+  border-bottom: 1px solid $dark-gray;
+  padding: 5px;
+  background: $lighter-blue;
+
+  &:hover, &--active {
+    background: $light-blue;
+  }
+}
