@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SuggestionsInput from './components/SuggestionsInput';
+import SuggestionsInput from './components/smart/SuggestionsInput';
 import './App.scss';
 
 class App extends Component {

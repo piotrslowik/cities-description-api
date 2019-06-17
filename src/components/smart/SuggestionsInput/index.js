@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ArrowKeysReact from 'arrow-keys-react';
 
-import Input from '../Input';
-import Suggestion from '../Suggestion';
+import Input from '../../shared/Input';
+import Suggestion from '../../shared/Suggestion';
 
 class SuggestionsInput extends Component {
   constructor(props) {
