@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import SuggestionsInput from './components/smart/SuggestionsInput';
+import Button from './components/shared/Button';
+
 import './App.scss';
 
 class App extends Component {
@@ -16,9 +19,27 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SuggestionsInput suggestions={this.suggestions} />
+        <SuggestionsInput
+          inputValue={this.state.inputValue}
+          suggestions={this.suggestions}
+          actionOnValueChange={this.handleValueChange}
+        />
+        <Button
+          text={'Search'}
+          action={this.handleCountrySearch}
+        />
       </div>
     )
+  }
+
+  handleValueChange = value => {
+    this.setState({
+      inputValue: value,
+    })
+  }
+
+  handleCountrySearch = () => {
+    console.log(this.state.inputValue)
   }
 }
 

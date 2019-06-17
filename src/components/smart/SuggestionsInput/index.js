@@ -9,7 +9,6 @@ class SuggestionsInput extends Component {
     super(props);
 
     this.state = {
-      inputValue: '',
       activeSuggestionIndex: 0,
       filteredSuggestions: [],
       suggestionsNumber: 0,
@@ -25,7 +24,7 @@ class SuggestionsInput extends Component {
     return (
       <div className="suggestions-input" >
         <Input
-          value={ this.state.inputValue }
+          value={ this.props.inputValue }
           actionOnChange={ this.handleInput }
           placeholder="Type a name of a country..."
           actionOnKeyPress={ this.handleEnterKey }
@@ -40,8 +39,8 @@ class SuggestionsInput extends Component {
 
   handleInput = value => {
     const filteredSuggestions = this.props.suggestions.filter(el => this.filterSuggestions(el, value));
+    this.props.actionOnValueChange(value);
     this.setState({
-      inputValue: value,
       filteredSuggestions: filteredSuggestions
     })
   }
@@ -49,9 +48,8 @@ class SuggestionsInput extends Component {
 
   handleEnterKey = event => {
     if (event.key === 'Enter') {
-      this.setState({
-        inputValue: this.state.filteredSuggestions[this.state.activeSuggestionIndex],
-      })
+      const newValue = this.state.filteredSuggestions[this.state.activeSuggestionIndex];
+      this.props.actionOnValueChange(newValue);
     }
   }
 
@@ -76,7 +74,7 @@ class SuggestionsInput extends Component {
   }
 
   renderSuggestions = () => {
-    return this.state.inputValue === ''
+    return this.props.inputValue === ''
     ? null
     : (this.state.filteredSuggestions.map((el, index) => {
         return (
