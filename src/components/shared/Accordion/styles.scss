@@ -1,0 +1,33 @@
+@import "../../../variables.scss";
+
+.accordion {
+  &__header {
+    background-color: $lighter-gray;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: $light-gray;
+    }
+  }
+
+  &__text {
+    padding: 0 18px;
+    background-color: $lighter-blue;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+
+  &--active {
+    .accordion__header {
+      background-color: $light-gray;
+    }
+  }
+}

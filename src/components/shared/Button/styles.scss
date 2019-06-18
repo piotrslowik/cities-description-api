@@ -1,0 +1,9 @@
+@import '../../../variables.scss';
+
+.button {
+  background-image: linear-gradient($lighter-blue, $lightish-blue);
+  border: none;
+  font-size: 14px;
+  padding: 0 10x;
+  cursor: pointer;
+}

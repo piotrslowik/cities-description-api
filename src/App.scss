@@ -4,9 +4,48 @@
 
 .App {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+
+  &-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 0 30px 0;
+    
+    .button {
+      margin-left: 50px;
+      height: 40px;
+      padding: 0 20px;
+    }
+    
+    .suggestions-input {
+      .input {
+        height: 40px;
+      }
+    }
+  }
+
+  .loader {
+    align-self: center;
+  }
+
+  &-results {
+    display: flex;
+    justify-content: center;
+    
+    .accordion {
+      max-width: 800px;
+      width: 100%;
+    }
+  }
 }
 
-@import "./components/Input/styles.scss";
-@import "./components/Suggestion/styles.scss";
-@import "./components/SuggestionsInput/styles.scss";
+@import "./components/shared/Input/styles.scss";
+@import "./components/shared/Suggestion/styles.scss";
+@import "./components/shared/Button/styles.scss";
+@import "./components/shared/Loading/styles.scss";
+@import "./components/shared/Header/styles.scss";
+@import "./components/shared/Accordion/styles.scss";
+
+@import "./components/smart/SuggestionsInput/styles.scss";
