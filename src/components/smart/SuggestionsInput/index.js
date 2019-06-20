@@ -29,8 +29,10 @@ class SuggestionsInput extends Component {
           placeholder="Type a name of a country..."
           actionOnKeyPress={ this.handleEnterKey }
           arrowEvents={ ArrowKeysReact.events }
+          actionOnBlur={ this.toggleSuggestionsVisibility }
+          actionOnFocus={ this.toggleSuggestionsVisibility }
         />
-        <div className="suggestions-input-list">
+        <div className="suggestions-input-list hidden">
           { this.renderSuggestions() }
         </div>
       </div>
@@ -91,6 +93,10 @@ class SuggestionsInput extends Component {
 
   filterSuggestions = (value, filterValue) => {
     return value.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1
+  }
+
+  toggleSuggestionsVisibility = () => {
+    document.querySelector('.suggestions-input-list').classList.toggle('hidden');
   }
 
 }

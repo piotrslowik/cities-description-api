@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CORS } from './helpers';
+import { CORS, getUniqes } from './helpers';
 import SuggestionsInput from './components/smart/SuggestionsInput';
 import Button from './components/shared/Button';
 import Loading from './components/shared/Loading';
@@ -20,6 +20,7 @@ class App extends Component {
       inputValue: '',
       pollutionType: 'BC',
       isLoading: false,
+      isError: false,
       data: [],
     }
   }
@@ -47,6 +48,11 @@ class App extends Component {
           />
         </div>
         <div className="App-results">
+        { 
+            this.state.isError
+            ? <p className="App-results__error">Sorry, something went wrong... :(</p>
+            : null
+          }
           { 
             this.state.isLoading
             ? <Loading />
@@ -80,6 +86,7 @@ class App extends Component {
     try {
       this.setState({
         isLoading: true,
+        isError: false,
       })
       const response = await axios.get(`${CORS}https://api.openaq.org/v1/measurements`, {
         params: {
@@ -90,16 +97,18 @@ class App extends Component {
           date_from: '2019-06-01',
         }
       });
+      console.log(response)
       let cities = this.getCitiesFromResponse(response.data.results);
-      cities = this.getUniqes(cities)
+      cities = getUniqes(cities)
       const citiesForAccordion = await this.formatDataForAccordion(cities);
       this.setState({
         data: citiesForAccordion,
-        isLoading: false,
       })
     } catch (error) {
-      console.error(error);
-    } finally {
+      this.setState({
+        isError: true,
+      })
+     } finally {
       this.setState({
         isLoading: false,
       })
@@ -108,28 +117,21 @@ class App extends Component {
 
   getWikiAbout = async topic => {
     try {
-      // const response = await axios.get(`${CORS}https://en.wikipedia.org/w/api.php`, {
-      //   params: {
-      //     action: 'query',
-      //     prop: 'extracts',
-      //     rvprop: 'content',
-      //     rvsection: 0,
-      //     titles: 'Pizza'
-      //   },
-      // });
       const data = await axios.get(`https://en.wikipedia.org/api/rest_v1/page/summary/${topic}`);
       return data.data.extract;
     } catch (error) {
-      console.error(error)
+      this.setState({
+        isError: true,
+      })
     }
   }
 
-  formatDataForAccordion = async city => {
+  formatDataForAccordion = async cities => {
     const output = [];
-    for (let i = 0; i < 10; i++) {
-      const desc = await this.getWikiAbout(city[i])
+    for (let i = 0; i < 10 && i < cities.length; i++) {
+      const desc = await this.getWikiAbout(cities[i])
       const cityObj = {
-        cityName: city[i],
+        cityName: cities[i],
         cityDescription: desc,
       };
       output.push(cityObj);
@@ -158,14 +160,6 @@ class App extends Component {
       groups.push(item['city'])
       return groups
     }, []);
-  }
-
-  getUniqes = arr => {
-    const newArr = [];
-    arr.forEach(el => {
-      if (!newArr.includes(el)) newArr.push(el);
-    })
-    return newArr
   }
 }
 

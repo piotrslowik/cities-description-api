@@ -9,6 +9,8 @@ const input = ({
   actionOnKeyPress,
   type,
   placeholder,
+  actionOnBlur,
+  actionOnFocus,
   arrowEvents,
 }) => {
   return (
@@ -20,6 +22,8 @@ const input = ({
       onKeyPress={actionOnKeyPress}
       type={type}
       placeholder={placeholder}
+      onBlur={actionOnBlur}
+      onFocus={actionOnFocus}
       {...arrowEvents}
     />
   )

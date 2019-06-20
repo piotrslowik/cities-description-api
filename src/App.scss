@@ -49,6 +49,10 @@
   }
 }
 
+.hidden {
+  display: none;
+}
+
 @import "./components/shared/Input/styles.scss";
 @import "./components/shared/Suggestion/styles.scss";
 @import "./components/shared/Button/styles.scss";
