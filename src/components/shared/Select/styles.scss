@@ -1,0 +1,13 @@
+.select {
+  padding: 8px;
+
+  &-label {
+    font-size: 14px;
+    margin: 8px 20px 8px 0;
+  }
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 36px;
+  }
+}

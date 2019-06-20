@@ -3,7 +3,9 @@
 .accordion {
   &__header {
     background-color: $lighter-gray;
-    color: #444;
+    color: $dark-gray;
+    font-size: 18px;
+    text-align: center !important;
     cursor: pointer;
     padding: 18px;
     width: 100%;
