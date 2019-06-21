@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CORS, getUniqes, validateDate } from './helpers';
+import { getUniqes, validateDate } from './helpers';
 import SuggestionsInput from './components/smart/SuggestionsInput';
 import Button from './components/shared/Button';
 import Loading from './components/shared/Loading';
@@ -96,7 +96,7 @@ class App extends Component {
         isLoading: true,
         isError: false,
       })
-      const response = await axios.get(`${CORS}https://api.openaq.org/v1/measurements`, {
+      const response = await axios.get(`https://api.openaq.org/v1/measurements`, {
         params: {
           country: this.getCountryCode(this.state.inputValue),
           parameter: this.state.pollutionType,
