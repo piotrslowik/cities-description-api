@@ -7,3 +7,13 @@ export const getUniqes = arr => {
   })
   return newArr
 }
+
+export const formatDate = date => {
+  if (date === '') {
+    const dateObj = new Date();
+    return `${dateObj.getFullYear()}-${dateObj.getMonth() +1}-${dateObj.getDate()}`;
+  } else {
+    const dateParts = date.split('-');
+    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+  }
+}

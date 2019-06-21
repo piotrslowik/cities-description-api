@@ -1,0 +1,24 @@
+.date { 
+  margin-top: 30px;
+  max-width: 340px;
+  display: grid;
+  grid-column-gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20px;
+
+  .input {
+    width: 100%;
+  }
+
+  &__label {
+    width: 100%;
+    margin: 0;
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  &-container {
+    display: flex;
+    justify-content: center;
+  }
+}

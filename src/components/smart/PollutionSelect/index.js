@@ -18,7 +18,7 @@ class PollutionSelect extends Component {
       const response = await axios.get(`${CORS}https://api.openaq.org/v1/parameters`);
       const fetchedOptions = response.data.results.map(el => {
         return {
-          value: el.name,
+          value: el.id,
           text: el.description,
         };
       });

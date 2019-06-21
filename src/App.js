@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CORS, getUniqes } from './helpers';
+import { CORS, getUniqes, formatDate } from './helpers';
 import SuggestionsInput from './components/smart/SuggestionsInput';
 import Button from './components/shared/Button';
 import Loading from './components/shared/Loading';
 import Header from './components/shared/Header';
 import Accordion from './components/shared/Accordion';
 import PollutionSelect from './components/smart/PollutionSelect';
+import Date from './components/shared/Date';
 
 import './App.scss';
 
@@ -18,7 +19,8 @@ class App extends Component {
 
     this.state = {
       inputValue: '',
-      pollutionType: 'BC',
+      pollutionType: 'bc',
+      date: '',
       isLoading: false,
       isError: false,
       data: [],
@@ -30,10 +32,15 @@ class App extends Component {
       <div className="App">
         <Header
           main="10 most polluted cities"
-          sub="Since 1st of June 2019"
+          sub="And their brief description"
         />
         <PollutionSelect
           actionOnChange={this.handlePollutionTypeChange}
+        />
+        <Date
+          actionOnChange={this.handleDateChange}
+          value={this.state.date}
+          label="Approximate date"
         />
         <div className="App-input">
           <SuggestionsInput
@@ -94,7 +101,7 @@ class App extends Component {
           parameter: this.state.pollutionType,
           order_by: 'value',
           sort: 'desc',
-          date_from: '2019-06-01',
+          date_from: formatDate(this.state.date),
         }
       });
       console.log(response)
@@ -150,7 +157,7 @@ class App extends Component {
       Germany: 'DE',
       France: 'FR',
       Poland: 'PL',
-      Spain: 'SP',
+      Spain: 'ES',
     }
     return codes[country];
   }
@@ -160,6 +167,12 @@ class App extends Component {
       groups.push(item['city'])
       return groups
     }, []);
+  }
+
+  handleDateChange = e => {
+    this.setState({
+      date: e,
+    })
   }
 }
 
