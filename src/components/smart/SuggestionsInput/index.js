@@ -83,7 +83,7 @@ class SuggestionsInput extends Component {
           <Suggestion
             key={index}
             text={el}
-            actionOnClick={this.handleInput}
+            actionOnClick={this.props.actionOnValueChange}
             active={this.state.activeSuggestionIndex === index}
           />
         )
@@ -96,7 +96,9 @@ class SuggestionsInput extends Component {
   }
 
   toggleSuggestionsVisibility = () => {
-    document.querySelector('.suggestions-input-list').classList.toggle('hidden');
+    setTimeout(() => {
+      document.querySelector('.suggestions-input-list').classList.toggle('hidden');
+    }, 0);
   }
 
 }

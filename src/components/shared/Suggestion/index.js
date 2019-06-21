@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const input = ({
+const suggestion = ({
   text,
   actionOnClick,
   active
@@ -9,20 +9,20 @@ const input = ({
   return (
     <div
       className={`suggestion ${active ? 'suggestion--active' : ''}`}
-      onClick={el => actionOnClick(text)}
+      onClick={() => actionOnClick(text)}
     >
       { text }
     </div>
   )
 };
 
-input.propTypes = {
+suggestion.propTypes = {
   text: PropTypes.string.isRequired,
   actionOnClick: PropTypes.func,
 };
 
-input.defaultProps = {
+suggestion.defaultProps = {
   actionOnClick: () => { },
 }
 
-export default input;
+export default suggestion;

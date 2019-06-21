@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CORS, getUniqes, formatDate } from './helpers';
+import { CORS, getUniqes } from './helpers';
 import SuggestionsInput from './components/smart/SuggestionsInput';
 import Button from './components/shared/Button';
 import Loading from './components/shared/Loading';
@@ -72,11 +72,12 @@ class App extends Component {
 
   renderData = () => {
     return (
-      this.state.data.map(el => {
+      this.state.data.map((el, index) => {
         return (
           <Accordion
             header={ el.cityName }
             text={ el.cityDescription }
+            key={ index }
           />
         )
       })
