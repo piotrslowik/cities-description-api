@@ -13,7 +13,6 @@ const date = ({
         <p className="date__label"> {label} </p>
         <Input
           type="date"
-          placeholder="DD-MM-YYYY"
           actionOnChange={actionOnChange}
           value={value}
         />
