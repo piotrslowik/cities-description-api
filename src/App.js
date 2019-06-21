@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CORS, getUniqes } from './helpers';
+import { CORS, getUniqes, validateDate } from './helpers';
 import SuggestionsInput from './components/smart/SuggestionsInput';
 import Button from './components/shared/Button';
 import Loading from './components/shared/Loading';
@@ -102,10 +102,9 @@ class App extends Component {
           parameter: this.state.pollutionType,
           order_by: 'value',
           sort: 'desc',
-          date_from: this.state.date,
+          date_from: validateDate(this.state.date),
         }
       });
-      console.log(response)
       let cities = this.getCitiesFromResponse(response.data.results);
       cities = getUniqes(cities)
       const citiesForAccordion = await this.formatDataForAccordion(cities);
