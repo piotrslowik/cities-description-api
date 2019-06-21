@@ -18,7 +18,7 @@ class App extends Component {
     this.suggestions = ['Poland', 'Germany', 'Spain', 'France']
 
     this.state = {
-      inputValue: '',
+      inputValue: sessionStorage.getItem('inputValue') || '',
       pollutionType: 'bc',
       date: '',
       isLoading: false,
@@ -85,6 +85,7 @@ class App extends Component {
   }
 
   handleValueChange = value => {
+    sessionStorage.setItem('inputValue', value);
     this.setState({
       inputValue: value,
     })
