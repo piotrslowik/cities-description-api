@@ -101,7 +101,7 @@ class App extends Component {
           parameter: this.state.pollutionType,
           order_by: 'value',
           sort: 'desc',
-          date_from: formatDate(this.state.date),
+          date_from: this.state.date,
         }
       });
       console.log(response)
