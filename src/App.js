@@ -23,6 +23,7 @@ class App extends Component {
       date: '',
       isLoading: false,
       isError: false,
+      noData: false,
       data: [],
     }
   }
@@ -47,17 +48,23 @@ class App extends Component {
             inputValue={this.state.inputValue}
             suggestions={this.suggestions}
             actionOnValueChange={this.handleValueChange}
+            actionOnSend={this.handleCountrySearch}
           />
           <Button
             className="App-input__button"
             text={'Search'}
-            action={()=>this.handleCountrySearch()}
+            action={this.handleCountrySearch}
           />
         </div>
         <div className="App-results">
-        { 
+          { 
             this.state.isError
             ? <p className="App-results__error">Sorry, something went wrong... :(</p>
+            : null
+          }
+          { 
+            this.state.noData
+            ? <p className="App-results__error">Sorry, there is no data about that time or pollution... :(</p>
             : null
           }
           { 
@@ -96,6 +103,7 @@ class App extends Component {
       this.setState({
         isLoading: true,
         isError: false,
+        noData: false,
       })
       const response = await axios.get(`https://api.openaq.org/v1/measurements`, {
         params: {
@@ -107,20 +115,30 @@ class App extends Component {
         }
       });
       let cities = this.getCitiesFromResponse(response.data.results);
-      cities = getUniqes(cities)
-      const citiesForAccordion = await this.formatDataForAccordion(cities);
-      this.setState({
-        data: citiesForAccordion,
-      })
+      if  (cities.length) {
+        this.handleResponse(cities);
+      } else {
+        this.setState({
+          noData: true,
+        });
+      }
     } catch (error) {
       this.setState({
         isError: true,
-      })
+      });
      } finally {
       this.setState({
         isLoading: false,
-      })
+      });
     }
+  }
+
+  handleResponse = data => {
+    const cities = getUniqes(data)
+    const citiesForAccordion = await this.formatDataForAccordion(cities);
+    this.setState({
+      data: citiesForAccordion,
+    })
   }
 
   getWikiAbout = async topic => {

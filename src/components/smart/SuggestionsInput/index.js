@@ -12,6 +12,7 @@ class SuggestionsInput extends Component {
       activeSuggestionIndex: 0,
       filteredSuggestions: [],
       suggestionsNumber: 0,
+      willEnterSend: false,
     }
   }
 
@@ -27,7 +28,7 @@ class SuggestionsInput extends Component {
           value={ this.props.inputValue }
           actionOnChange={ this.handleInput }
           placeholder="Type a name of a country..."
-          actionOnKeyPress={ this.handleEnterKey }
+          actionOnKeyPress={ this.handleSpecialKeys }
           arrowEvents={ ArrowKeysReact.events }
           actionOnBlur={ this.toggleSuggestionsVisibility }
           actionOnFocus={ this.toggleSuggestionsVisibility }
@@ -48,10 +49,24 @@ class SuggestionsInput extends Component {
   }
 
 
-  handleEnterKey = event => {
+  handleSpecialKeys = event => {
     if (event.key === 'Enter') {
-      const newValue = this.state.filteredSuggestions[this.state.activeSuggestionIndex];
-      this.props.actionOnValueChange(newValue);
+      if (!this.state.willEnterSend) {
+        const newValue = this.state.filteredSuggestions[this.state.activeSuggestionIndex];
+        this.props.actionOnValueChange(newValue);
+        this.setState({
+          willEnterSend: true,
+        });
+      } else {
+        this.props.actionOnSend();
+        this.setState({
+          willEnterSend: false,
+        });
+      }
+    } else {
+      this.setState({
+        willEnterSend: false,
+      });
     }
   }
 
@@ -59,7 +74,8 @@ class SuggestionsInput extends Component {
     if (this.state.activeSuggestionIndex >= 1) {
       this.setState(prevState => {
         return {
-          activeSuggestionIndex: --prevState.activeSuggestionIndex
+          activeSuggestionIndex: --prevState.activeSuggestionIndex,
+          willEnterSend: false,
         };
       });
     }
@@ -69,7 +85,8 @@ class SuggestionsInput extends Component {
     if (this.state.activeSuggestionIndex < this.state.filteredSuggestions.length - 1 ) {
       this.setState(prevState => {
         return {
-          activeSuggestionIndex: ++prevState.activeSuggestionIndex
+          activeSuggestionIndex: ++prevState.activeSuggestionIndex,
+          willEnterSend: false,
         };
       });
     }

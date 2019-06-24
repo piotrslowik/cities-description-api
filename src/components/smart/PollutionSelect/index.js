@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { CORS } from '../../../helpers';
 import Select from '../../shared/Select';
 
 class PollutionSelect extends Component {
@@ -14,7 +15,7 @@ class PollutionSelect extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get(`https://api.openaq.org/v1/parameters`);
+      const response = await axios.get(`${CORS}https://api.openaq.org/v1/parameters`);
       const fetchedOptions = response.data.results.map(el => {
         return {
           value: el.id,
