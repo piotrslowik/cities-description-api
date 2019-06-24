@@ -133,7 +133,7 @@ class App extends Component {
     }
   }
 
-  handleResponse = data => {
+  handleResponse = async data => {
     const cities = getUniqes(data)
     const citiesForAccordion = await this.formatDataForAccordion(cities);
     this.setState({
